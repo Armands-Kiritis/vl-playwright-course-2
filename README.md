@@ -1,18 +1,12 @@
-# Payroll Transaction list, Sprint 2 — workshop demo page
+# Payroll Transaction list — workshop demo page (Sprint 2)
 
-This is the practice website for **Playwright Part 2: from requirements to bugs**, the follow-up to
-*Playwright for beginners*. It is the same payroll screen you tested in Part 1, one sprint later:
-the developers have fixed what you reported and built the next set of features. It is the page you
-will be testing during the session.
-
-> ### 🚧 Under construction
-> The page is not here yet. It will be published before the workshop, and this README will be
-> updated with the build stamp at the same time. Until then, this repository holds only this file.
+This is the practice website for **Playwright Part 2**. It looks like a payroll system, and it is
+the page you will be testing during the session.
 
 > ### ⚠️ This is not a real system
 > Everything here is invented — every name, every amount, every company. It is not a Visma product,
-> there is no database behind it, and nothing you do on this page is sent anywhere. You cannot
-> break it.
+> there is no database behind it, and nothing you do on this page is sent anywhere.
+> You cannot break it.
 
 ---
 
@@ -20,33 +14,10 @@ will be testing during the session.
 
 **<https://armands-kiritis.github.io/vl-playwright-course-2/>**
 
-Nothing to download. Nothing to install. Once the page is published, if that link opens a payroll
-screen, **you are ready** — skip to [Signing in](#signing-in).
+Nothing to download. Nothing to install. If that link opens a payroll screen, **you are ready** —
+skip to [Signing in](#signing-in).
 
-Use this link unless the facilitator tells you otherwise.
-
-> **Coming from Part 1?** This is a different address from the Part 1 page. Part 1's page stays as
-> it was; the tests you kept from Part 1 can be pointed at this one.
-
----
-
-## What is new in Sprint 2
-
-The release brings the screen up to the **Phase 2 requirements**. You will get the full
-requirements as a handout in the session; in short:
-
-| Requirement | What it adds |
-|---|---|
-| **FR-10 — Saved views** | Save your filters and columns as a named view and pick it again later |
-| **FR-11 — Inline amount edit** | Correct the amount on a Pending transaction without leaving the screen |
-| **FR-12 — Reject with reason** | Reject a Pending transaction, with a mandatory reason that shows in its history |
-| **FR-13 — Paging** | Choose 25, 50 or 100 rows per page |
-| **FR-14 — Sorting** | Sort by any column |
-
-There is also more data than in Part 1 — a bigger payroll run, so paging has something to page
-through.
-
-Whether all of it works as the requirements say is what the workshop is for.
+Use this link unless a facilitator tells you otherwise.
 
 ---
 
@@ -81,30 +52,46 @@ Right-click the downloaded ZIP file → **Extract All…** → **Extract**.
 > first.**
 
 You should now have a real folder called `vl-playwright-course-2-main` containing `index.html`,
-`app.js`, `data.js` and `styles.css`.
+`app.js`, `data.js`, `xlsx.js` and `styles.css`.
 
 ### Step 3 — Start the page
 
-The page needs to be *served* rather than just opened. Open **PowerShell** (press the Windows key,
-type `powershell`, press Enter) and check what you have:
+The page needs to be *served* rather than just opened. That sounds technical, but it is one line
+that you type once.
+
+First, check what you already have. Open **PowerShell** (press the Windows key, type `powershell`,
+press Enter) and type this, then press Enter:
 
 ```
 node --version
 ```
 
-A version number like `v22.14.0` means you have **Node.js** — use option A. An error? Try
-`python --version`; a version number means you have **Python** — use option B. If neither works,
-install Node.js from <https://nodejs.org> (the **LTS** version), close and reopen PowerShell, and
-use option A.
+If you see a version number like `v22.14.0`, you have **Node.js** — use option A.
+If you see an error, try:
+
+```
+python --version
+```
+
+If *that* gives a version number, you have **Python** — use option B.
+If neither works, see [I have neither](#i-have-neither-nodejs-nor-python).
+
+---
 
 #### Option A — you have Node.js
+
+In PowerShell, navigate to the folder you extracted and start the server. Replace the path below
+with your own if you extracted it somewhere else:
 
 ```
 cd "$env:USERPROFILE\Downloads\vl-playwright-course-2-main"
 npx serve -l 8000
 ```
 
-The first time, it asks `Ok to proceed? (y)` — type **y** and press Enter.
+The first time, it will ask `Ok to proceed? (y)` — type **y** and press Enter.
+
+Then open **<http://localhost:8000>** in your browser. That's the same address the workshop
+material uses.
 
 #### Option B — you have Python
 
@@ -115,46 +102,64 @@ python -m http.server 8000
 
 Then open **<http://localhost:8000>** in your browser.
 
+#### I have neither Node.js nor Python
+
+Install **Node.js** — it is the one you will most likely need for the workshop anyway:
+
+1. Go to <https://nodejs.org>
+2. Download the version marked **LTS** (the recommended one, on the left).
+3. Run the installer and click Next through it. The default options are fine.
+4. **Close PowerShell and open it again** — this is necessary, it will not work otherwise.
+5. Type `node --version`. You should now see a version number.
+6. Follow **Option A** above.
+
+> **If the installer asks for an administrator password** and you do not have one, you will not be
+> able to install Node.js yourself. Contact IT, or tell the facilitator before the session — the
+> hosted link at the top of this page needs nothing installed.
+
 ### Step 4 — Leave it running
 
-The PowerShell window has to **stay open** while you use the page. It looks frozen — that is
-normal. Minimise it; do not close it. Press **Ctrl + C** in it when you are finished.
+The PowerShell window has to **stay open** while you use the page. It looks like it has frozen —
+that is normal, it is doing its job. Minimise it; do not close it.
 
-> **Did Part 1 on your own computer?** Part 1's copy also used port 8000. Stop it first, or use
-> `8001` for this one and open `http://localhost:8001`.
+When you are finished, click the window and press **Ctrl + C** to stop it.
 
 ---
 
 ## Signing in
 
-The username and password are printed on the sign-in page, so there is nothing to remember. They
-are fake; there is nothing real behind them.
+The username and password are printed on the sign-in page, so there is nothing to remember:
+
+| Username | Password |
+|---|---|
+| `payroll.admin` | `Workshop2026!` |
+
+They are fake. There is nothing real behind them.
 
 ---
 
 ## Checking you are on the right version
 
-Look at the **bottom left** of the page for the build stamp. Sprint 2's stamp starts with
-**`sprint2`** — if yours shows `2026-09-18a`, you are on the Part 1 page.
+Look at the **bottom left** of the page:
 
-If the facilitator asks you to *"read back your build stamp"*, that is the line they mean. If yours
-does not match theirs, press **Ctrl + Shift + R** to force the browser to refresh, or download the
-folder again.
+```
+build sprint2-2026-10-06
+```
+
+If a facilitator asks you to *"read back your build stamp"*, that is the line they mean. If yours
+does not match theirs, you are on an old copy — download it again, or press **Ctrl + Shift + R** to
+force the browser to refresh the hosted page.
 
 ---
 
-## Other versions of the page
+## The payroll runs
 
-During the session you may be asked to switch to a later build. You do that by adding a bit to the
-end of the web address:
+The page holds four payroll runs: **March 2026** and **April 2026** (closed), **May 2026** and
+**June 2026**. **June 2026 is the one used in today's session.** It is the largest, with 60
+transactions.
 
-| Add this to the address | What it is |
-|---|---|
-| *(nothing)* | The version you start on |
-| `?variant=b` | A later build where something visibly changed |
-| `?variant=c` | A later build where something changed that you cannot see |
-
-The version you are on is always shown in the footer, next to the build stamp.
+Your facilitator may give you an extra address to try during the session. If they do, add it to the
+end of the web address as they say.
 
 ---
 
@@ -164,9 +169,10 @@ The version you are on is always shown in the footer, next to the build stamp.
 |---|---|
 | The page is blank or unstyled | You probably opened it from inside the ZIP. Go back to [Step 2](#step-2--unzip-it-properly) and extract it first. |
 | `The term 'node' is not recognized` | Node.js is not installed, or you did not reopen PowerShell after installing it. |
-| `Port 8000 is already in use` | Something else — perhaps your Part 1 copy — is using it. Use port `8001` instead. |
-| The address starts with `file:///` | You opened the file directly. Serve it (Step 3); the address must start with `http://`. |
-| The build stamp says `2026-09-18a` | That is the Part 1 page. Use the link at the top of this README. |
+| `Port 8000 is already in use` | Something else is using that address. Use `python -m http.server 8001` and open `http://localhost:8001` instead. |
+| It signs you out every time you reload | You are opening the file directly instead of serving it. The address must start with `http://`, not `file:///`. |
+| `cd` says it cannot find the path | The folder is somewhere other than Downloads. Find it in File Explorer, click in the address bar, copy the path, and use that inside the quotes. |
+| The address bar says `localhost` but nothing loads | Check the PowerShell window is still open and still running. |
 
 Still stuck? Bring it to the session — getting everyone onto the page is the first thing we do.
 
@@ -174,14 +180,13 @@ Still stuck? Bring it to the session — getting everyone onto the page is the f
 
 ## What is in this folder
 
-Once the page is published:
-
 | File | What it is |
 |---|---|
 | `index.html` | The page itself |
 | `styles.css` | How it looks |
 | `data.js` | The payroll data — fixed values, identical on every machine |
 | `app.js` | How the page behaves |
+| `xlsx.js` | Lets the page create Excel files for Export to Excel |
 
 Plain HTML, CSS and JavaScript. No build step, no dependencies, and no internet needed once you
 have the folder.
@@ -190,9 +195,10 @@ have the folder.
 
 ## Good to know
 
-- **Approvals, rejections and edits are not kept.** Reload and the payroll data is back to the
-  start.
-- **Your own settings are kept in your browser** — which columns you show and the views you save.
-  That is part of what Sprint 2 promises. To start completely fresh, open the page in a private
-  window.
+- **Nothing is sent anywhere.** Everything stays in your browser.
+- **Reload puts the transactions back to the start.** If you approve something and want it back,
+  just reload the page. **Saved views and your column choice are remembered in this browser**, so
+  they are still there after a reload. To start completely fresh, use a private / incognito window.
+- You stay signed in if you reload, but not if you open a new tab.
+- It works on a narrow window too — the table turns into cards under about 600 pixels wide.
 - It works in Chrome, Edge, Firefox and Safari.
